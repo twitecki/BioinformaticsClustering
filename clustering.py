@@ -75,29 +75,27 @@ def mergeClusters(distArray):
 	for i in range(0, numColumns - 1):
 		newDist.append([])
 
-	for i in range(0, numColumns):
-		if i != location[1]:
-			if i < location[1]:
-				row = i
-			elif i > location[1]:
-				row = i - 1
-			if i == location[0]:
-				map(lambda x: newDist[row].append(x), newCluster)
+	for r in range(0, numColumns):
+		if r != location[1]:
+			rowToInsertAt = r
+			if r > location[1]:
+				rowToInsertAt = r - 1
+			if r == location[0]:
+				map(lambda x: newDist[rowToInsertAt].append(x), newCluster)
 			else:
-				for x in range(0, len(distArray[i])):
-					if x != location[1]:
-						if x < location[1]:
-							column = x	
-						if x > location[1]:
-							column = x - 1
-						if x == location[0]:
-							curval = distArray[row+1][column+1]
-							dm = newCluster[0]
-							value = DistanceMeasurement(curval.fm, dm.fm, newCluster[row].distance)
-							newDist[row].append(value)
+				for c in range(0, len(distArray[r])):
+					if c != location[1]:
+						columnToInsertAt = c	
+						if c > location[1]:
+							columnToInsertAt = c - 1
+						if c == location[0]:
+							curval = distArray[r][c]
+							newTo = distArray[location[0]][location[1]].fm + distArray[location[0]][location[1]].to
+							value = DistanceMeasurement(curval.fm, newTo, newCluster[rowToInsertAt].distance)
+							newDist[rowToInsertAt].append(value)
 						else:
-							value = distArray[row+1][column+1]
-							newDist[row].append(value)
+							value = distArray[r][c]
+							newDist[rowToInsertAt].append(value)
 
 	return newDist
 

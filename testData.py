@@ -2,6 +2,12 @@ import sys
 from testObjects import *
 from clustering import *
 
+def findAnswer(matrix):
+	while(len(matrix) > 2):
+		printDistanceMatrix(matrix)
+		matrix = mergeClusters(matrix)
+	printDistanceMatrix(matrix)
+
 #WORKING IMPLEMENTATION
 #object1 = DataObject("A", 12)
 #object2 = DataObject("B", 17)
@@ -25,22 +31,26 @@ from clustering import *
 #testMatrix.append(mt2)
 #printCluster(testMatrix)
 
-da = buildTestDistanceArray('testMatrix.txt')
+#da = buildTestDistanceArray('testMatrix.txt')
+da = buildTestDistanceArray('largeTestMatrix.txt')
 #for i in range (len(da)):
 #	for j in range (len(da[i])):
 #		print da[i][j],
 #	print ""
 test = buildTestDistanceMatrix(da)
-print test[0][0].fm
-print test[0][0].to
 
 #test = buildDistanceMatrix(objects)
-printDistanceMatrix(test)
-test = mergeClusters(test)
-printDistanceMatrix(test)
-test = mergeClusters(test)
-printDistanceMatrix(test)
-test = mergeClusters(test)
-printDistanceMatrix(test)
-test = mergeClusters(test)
-printDistanceMatrix(test)
+#printDistanceMatrix(test)
+#test = mergeClusters(test)
+#printDistanceMatrix(test)
+#test = mergeClusters(test)
+#printDistanceMatrix(test)
+#test = mergeClusters(test)
+#printDistanceMatrix(test)
+#test = mergeClusters(test)
+#printDistanceMatrix(test)
+
+findAnswer(test)
+
+
+

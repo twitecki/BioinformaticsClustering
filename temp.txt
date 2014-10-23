@@ -1,0 +1,18 @@
+for i in range(0, numColumns):
+      if i != location[1]:
+         if i < location[1]:
+            index = i
+         elif i > location[1]:
+            index = i - 1
+         if i == location[0]:
+            map(lambda x: newDist[index].append(x), newCluster)
+         else:
+            for x in range(0, len(distArray[i])):
+               if x != location[1]:
+                  if x == location[0]:
+                     dm = newCluster[index]
+                     value = DistanceMeasurement(dm.to, dm.to.append(distArray[location[1]][x].fm), dm.distance)
+                     newDist[index].append(value)
+                  else:
+                     value = distArray[i][x]
+                     newDist[index].append(value)
