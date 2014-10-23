@@ -96,7 +96,7 @@ def mergeClusters(distArray):
 							value = DistanceMeasurement(curval.fm, dm.fm, newCluster[row].distance)
 							newDist[row].append(value)
 						else:
-							value = distArray[row+1][column+1]
+							value = distArray[row][column]
 							newDist[row].append(value)
 
 	return newDist

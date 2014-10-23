@@ -29,7 +29,7 @@ class DistanceMeasurement:
 
 	def __str__(self):
 		#return str(self.fm) + " " + str(self.to) + " " + str(self.distance)
-		return "F: " + str(self.fm) + " - T: " + str(self.to) + " - " + str(self.distance)
+		return "fm:" + str(self.fm) + " to:" + str(self.to) + " " + str(self.distance)
 		#return str(self.distance)
 
 def compareObjects(obj1, obj2):
@@ -52,6 +52,11 @@ def printDistanceMatrix(matrix):
  			print str(matrix[i][j]) + ", ",
  		print str(matrix[i][j+1]),
 		print "]"
+	for i in range (0, len(matrix)):
+		print ''
+		for j in range (0, len(matrix[i])):
+			print str(matrix[i][j].distance) + "\t",
+	print""
 
 def printToFromMatrix(matrix):
 	for i in range (0, len(matrix)):
@@ -84,7 +89,8 @@ def buildTestDistanceArray(fileName):
 	for i in range(0, len(lines)-1):
 		distArr.append([])
 	for i in range(0, len(lines)-1):
-		nums = lines[i].split(' ')
+		#nums = lines[i].split(' ')
+		nums = lines[i].split('\t')
 		for x in range(0, len(nums)):
 			distArr[i].append(nums[x])
 	return distArr
@@ -100,3 +106,4 @@ def buildTestDistanceMatrix(testDistanceArray):
 			matrixColumn.append(DistanceMeasurement([f], [t], int(testDistanceArray[i][j])))
 		distanceMatrix.append(matrixColumn)
 	return distanceMatrix
+
