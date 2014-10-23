@@ -2,8 +2,15 @@ class DataObject:
 	def __init__(self, name, value):
 		self.name = name
 		self.value = value
+	#def __str__(self):
+		#return str(self.name)
+	#def __repr__(self):
+		#return str(self.name)
 	def __str__(self):
-		return str(self.name)
+		return self.name
+	def __repr__(self):
+		return self.name
+
 
 class DistanceMeasurement: 
 	def __init__(self, fm, to, distance):
@@ -12,7 +19,7 @@ class DistanceMeasurement:
 		self.distance = distance 
 
 	def display(self):
-		print "From: " + self.fm + " To: " + self.to + " Distance: " + str(self.distance)
+		print "From: " + str(self.fm) + " To: " + str(self.to) + " Distance: " + str(self.distance)
 	
 	def displayTo(self):
 		print str(self.to)
@@ -22,7 +29,8 @@ class DistanceMeasurement:
 
 	def __str__(self):
 		#return str(self.fm) + " " + str(self.to) + " " + str(self.distance)
-		return str(self.distance)
+		return "F: " + str(self.fm) + " - T: " + str(self.to) + " - " + str(self.distance)
+		#return str(self.distance)
 
 def compareObjects(obj1, obj2):
 	return abs(obj1.value - obj2.value)
@@ -45,6 +53,14 @@ def printDistanceMatrix(matrix):
  		print str(matrix[i][j+1]),
 		print "]"
 
+def printToFromMatrix(matrix):
+	for i in range (0, len(matrix)):
+		print "[",
+		for j in range(0, len(matrix[i]) - 1):
+ 			print str(matrix[i][j]) + ", ",
+ 		print str(matrix[i][j+1]),
+		print "]"
+
 def printCluster(cluster):
 	print "[",
 	for i in range (0, len(cluster) - 1):
@@ -52,10 +68,35 @@ def printCluster(cluster):
 	print str(cluster[len(cluster)-1]) + "]"
 
 def getToFromString(arr):
-	s = ""
-	s += "["
-	for i in range (0, len(arr) - 1):
-		s += str(arr[i])
-	s += str(arr[len(arr)-1]) + "]"
-	return s
+	if (len(arr) != 0):
+			  s = ""
+			  s += "["
+			  for i in range (0, len(arr) - 1):
+				  s += str(arr[i])
+			  s += str(arr[len(arr)-1]) + "]"
+			  return s
 
+def buildTestDistanceArray(fileName):
+	file = open(fileName, 'r')
+	fileString = file.read()	
+	lines = fileString.split('\n')
+	distArr = []
+	for i in range(0, len(lines)-1):
+		distArr.append([])
+	for i in range(0, len(lines)-1):
+		nums = lines[i].split(' ')
+		for x in range(0, len(nums)):
+			distArr[i].append(nums[x])
+	return distArr
+
+def buildTestDistanceMatrix(testDistanceArray):
+	distanceMatrix = []
+	for i in range(0, len(testDistanceArray)):
+		matrixColumn = []
+		for j in range(0, len(testDistanceArray)):
+			ch = chr(ord('A') + i)
+			f = DataObject(ch, 0)	# From
+			t = DataObject(chr(ord('A') + j), 0)	# To
+			matrixColumn.append(DistanceMeasurement([f], [t], int(testDistanceArray[i][j])))
+		distanceMatrix.append(matrixColumn)
+	return distanceMatrix
