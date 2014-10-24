@@ -1,6 +1,9 @@
 import sys
-from testObjects import *
+from data import *
+from comparisons import *
 from clustering import *
+from testFunctions import *
+from display import *
 
 def findAnswer(matrix):
 	while(len(matrix) > 2):
@@ -23,7 +26,6 @@ def findAnswer(matrix):
 #objects = [object1, object2, object3, object4, object5]
 
 
-
 #mt1 = DistanceMeasurement([object1, object2], [object1, object2], 0)
 #mt2 = DistanceMeasurement([object2, object3], [object2, object3], 0)
 #testMatrix = []
@@ -31,26 +33,16 @@ def findAnswer(matrix):
 #testMatrix.append(mt2)
 #printCluster(testMatrix)
 
-#da = buildTestDistanceArray('testMatrix.txt')
-da = buildTestDistanceArray('largeTestMatrix.txt')
-#for i in range (len(da)):
-#	for j in range (len(da[i])):
-#		print da[i][j],
-#	print ""
-test = buildTestDistanceMatrix(da)
 
-#test = buildDistanceMatrix(objects)
-#printDistanceMatrix(test)
-#test = mergeClusters(test)
-#printDistanceMatrix(test)
-#test = mergeClusters(test)
-#printDistanceMatrix(test)
-#test = mergeClusters(test)
-#printDistanceMatrix(test)
-#test = mergeClusters(test)
-#printDistanceMatrix(test)
+#da = readDistancesFromFile('TestTextFiles/test1.txt')
+#da = readDistancesFromFile('TestTextFiles/test2.txt')
+try :
+	da = readDistancesFromFile(sys.argv[1])
+	test = buildTestDistanceMatrix(da)
+	findAnswer(test)
+except IOError:
+	print "File not found"
 
-findAnswer(test)
 
 
 

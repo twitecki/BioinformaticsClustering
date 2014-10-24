@@ -1,17 +1,16 @@
 import sys
-from testObjects import *
+from data import *
+from display import *
 
-#distances = []
+def buildDistanceMatrix(objectArray):
+	distanceMatrix = []
+	for i in range(0, len(objectArray)):
+		matrixColumn = []
+		for j in range(0, len(objectArray)):
+			matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], compareObjects(objectArray[i],objectArray[j])))
+		distanceMatrix.append(matrixColumn)
 
-#distances.append([   0, 1075, 671, 2684, 2631, 1616])
-#distances.append([1075,   0, 1329, 3273, 2687, 2037])
-#distances.append([ 671, 1329,   0, 2013, 2054,  996])
-#distances.append([2684, 3273, 2013,   0,  808, 1307])
-#distances.append([2631, 2687, 2054, 808,    0, 1059])
-#distances.append([1616, 2037,  996,1307, 1059,    0])
-
-#for i in range(len(distances)):
-	#print distances[i]
+	return distanceMatrix
 
 def findMergeLocation(distArray):
 	minimum = sys.maxsize
@@ -24,12 +23,6 @@ def findMergeLocation(distArray):
 				minMeasurement = DistanceMeasurement(distArray[i][j].fm, distArray[i][j].to, distArray[i][j].distance)
 				location = (i,j)
 	
-	#print getToFromString(minMeasurement.fm)
-	#print getToFromString(minMeasurement.to)
-
-	#print "Merging... " + getToFromString(minMeasurement.fm) + " " + getToFromString(minMeasurement.to)
-	#print "From String: " + getToFromString(minMeasurement.fm)
-	#print "To String: " + getToFromString(minMeasurement.to)
 	print location
 	print "" 
 	return location
@@ -46,8 +39,6 @@ def mergeClusters(distArray):
 				m1 = distArray[location[0]][i]
 				m2 = distArray[location[1]][i]
 				newFrom = m1.fm + m2.fm
-				#newCluster.append(DistanceMeasurement(newFrom, m1.to, max(m1.distance, m2.distance)))
-				#newCluster.append(DistanceMeasurement(mergedFrom, m1.to, max(m1.distance, m2.distance)))
 				if i == location[0]:
 					newCluster.append(DistanceMeasurement(mergedFrom, mergedFrom, min(m1.distance, m2.distance)))
 				else:
@@ -55,11 +46,7 @@ def mergeClusters(distArray):
 			else:
 				m1 = distArray[location[0]][i]
 				m2 = distArray[location[1]][i]
-				#print "M1: " + str(m1)
-				#print "M2: " + str(m2)
-				#newFrom = m1.fm.append(m2.fm)
 				newFrom = m1.fm + m2.fm
-				#newCluster.append(DistanceMeasurement(newFrom, m1.to, min(m1.distance, m2.distance)))
 				if i == location[0]:
 					newCluster.append(DistanceMeasurement(mergedFrom, mergedFrom, min(m1.distance, m2.distance)))
 				else:
