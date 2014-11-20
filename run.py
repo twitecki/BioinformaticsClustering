@@ -4,6 +4,7 @@ from comparisons import *
 from clustering import *
 from testFunctions import *
 from display import *
+from fileWriting import *
 
 def findAnswer(matrix, nodeArray):
 	nArray = nodeArray
@@ -64,6 +65,7 @@ try :
 	root = findAnswer(test, nodeArray)
 	print ''
 	printTree(root)
+	createJSON(str(sys.argv[2]), root)
 except IOError:
 	print "File not found"
 except IndexError:
