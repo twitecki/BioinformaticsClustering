@@ -1,0 +1,19 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <center>
+	 <h1>BioInformatics Clustering</h1>
+	 <a class="" href="/"/>Home</a>
+	 <!-- <a class="" href="/cluster"/>Cluster Data</a> -->
+	 </center>
+    {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
+</body>
+</html>
