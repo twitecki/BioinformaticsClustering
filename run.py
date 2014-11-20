@@ -4,12 +4,24 @@ from comparisons import *
 from clustering import *
 from testFunctions import *
 from display import *
+from fileWriting import *
 
-def findAnswer(matrix):
+def findAnswer(matrix, nodeArray):
+	nArray = nodeArray
 	while(len(matrix) > 2):
 		printDistanceMatrix(matrix)
-		matrix = mergeClusters(matrix)
+		print nArray
+		result = mergeClusters(matrix, nArray,False)
+		matrix = result[0]
+		nArray = result[1]
 	printDistanceMatrix(matrix)
+	print nArray
+
+	result = mergeClusters(matrix, nArray,True)
+	nArray = result[1]
+	print nArray
+
+	return nArray[len(nArray)-1]
 
 #WORKING IMPLEMENTATION
 #object1 = DataObject("A", 12)
@@ -36,13 +48,25 @@ def findAnswer(matrix):
 
 #da = readDistancesFromFile('TestTextFiles/test1.txt')
 #da = readDistancesFromFile('TestTextFiles/test2.txt')
+def printTree(node):
+	if (node == None):
+		return
+	else:
+		node.displayNode()
+		print ''
+		printTree(node.left)
+		printTree(node.right)	
+		return
+
 try :
 	da = readDistancesFromFile(sys.argv[1])
 	test = buildTestDistanceMatrix(da)
-	findAnswer(test)
+	nodeArray = buildInitialNodeArray(test)
+	root = findAnswer(test, nodeArray)
+	print ''
+	printTree(root)
+	createJSON(str(sys.argv[2]), root)
 except IOError:
 	print "File not found"
-
-
-
-
+except IndexError:
+	print "Enter a file name to run"

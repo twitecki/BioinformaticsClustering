@@ -2,6 +2,13 @@ import sys
 from data import *
 from display import *
 
+def buildInitialNodeArray(objectArray):
+	nodeArray = []
+	for arr in objectArray:
+		newNode = Node(None, None, 0, arr[0].fm)
+		nodeArray.append(newNode)
+	return nodeArray
+
 def buildDistanceMatrix(objectArray):
 	distanceMatrix = []
 	for i in range(0, len(objectArray)):
@@ -27,62 +34,93 @@ def findMergeLocation(distArray):
 	print "" 
 	return location
 
-def mergeClusters(distArray):
-	location = findMergeLocation(distArray)
+def indexOfNode(nodeArray, cluster):
+	for i in range(0,len(nodeArray)):
+		if str(nodeArray[i].cluster) == str(cluster):
+			print 'Index of ' + str(cluster) + ' is ' + str(i)
+			return i
+	return -1
 
-	newCluster = []
-	m3 = distArray[location[0]][location[1]] #The Distance Measure to merge
-	mergedFrom = m3.fm + m3.to
-	for i in range(len(distArray)):
-		if i != location[1]:
-			if len(distArray) == 2 or distArray[location[1]][i].distance == 0: #this case deals with all 0's on the 2x2
-				m1 = distArray[location[0]][i]
-				m2 = distArray[location[1]][i]
-				newFrom = m1.fm + m2.fm
-				if i == location[0]:
-					newCluster.append(DistanceMeasurement(mergedFrom, mergedFrom, min(m1.distance, m2.distance)))
-				else:
-					newCluster.append(DistanceMeasurement(mergedFrom, m1.to, min(m1.distance, m2.distance)))
-			else:
-				m1 = distArray[location[0]][i]
-				m2 = distArray[location[1]][i]
-				newFrom = m1.fm + m2.fm
-				if i == location[0]:
-					newCluster.append(DistanceMeasurement(mergedFrom, mergedFrom, min(m1.distance, m2.distance)))
-				else:
-					newCluster.append(DistanceMeasurement(mergedFrom, m1.to, min(m1.distance, m2.distance)))
+def mergeClusters(distArray, nodeArray, isLastRun):
 	
-	print "NEW CLUSTER: "
-	printCluster(newCluster)	
-	print ""
+	if (isLastRun):
 
-	newDist = []
-	numColumns = len(distArray)
+		location = findMergeLocation(distArray)
 
-	for i in range(0, numColumns - 1):
-		newDist.append([])
+		newCluster = []
+		m3 = distArray[location[0]][location[1]] #The Distance Measure to merge
+		
+		leftNode = nodeArray[indexOfNode(nodeArray, m3.fm)]
+		rightNode = nodeArray[indexOfNode(nodeArray, m3.to)]
+		nodeCluster = m3.fm + m3.to	
+		n = Node(leftNode, rightNode, m3.distance, nodeCluster)
+		nodeArray.append(n)
+		n.displayNode()
+		return ([[]], nodeArray)
+	else:
+		location = findMergeLocation(distArray)
 
-	for r in range(0, numColumns):
-		if r != location[1]:
-			rowToInsertAt = r
-			if r > location[1]:
-				rowToInsertAt = r - 1
-			if r == location[0]:
-				map(lambda x: newDist[rowToInsertAt].append(x), newCluster)
-			else:
-				for c in range(0, len(distArray[r])):
-					if c != location[1]:
-						columnToInsertAt = c	
-						if c > location[1]:
-							columnToInsertAt = c - 1
-						if c == location[0]:
-							curval = distArray[r][c]
-							newTo = distArray[location[0]][location[1]].fm + distArray[location[0]][location[1]].to
-							value = DistanceMeasurement(curval.fm, newTo, newCluster[rowToInsertAt].distance)
-							newDist[rowToInsertAt].append(value)
-						else:
-							value = distArray[r][c]
-							newDist[rowToInsertAt].append(value)
+		newCluster = []
+		m3 = distArray[location[0]][location[1]] #The Distance Measure to merge
 
-	return newDist
+		leftNode = nodeArray[indexOfNode(nodeArray, m3.fm)]
+		rightNode = nodeArray[indexOfNode(nodeArray, m3.to)]
+		nodeCluster = m3.fm + m3.to	
+		n = Node(leftNode, rightNode, m3.distance, nodeCluster)
+		nodeArray.append(n)
+		print n.displayNode()
+
+		mergedFrom = m3.fm + m3.to
+		for i in range(len(distArray)):
+			if i != location[1]:
+				if len(distArray) == 2 or distArray[location[1]][i].distance == 0: #this case deals with all 0's on the 2x2
+					m1 = distArray[location[0]][i]
+					m2 = distArray[location[1]][i]
+					newFrom = m1.fm + m2.fm
+					if i == location[0]:
+						newCluster.append(DistanceMeasurement(mergedFrom, mergedFrom, min(m1.distance, m2.distance)))
+					else:
+						newCluster.append(DistanceMeasurement(mergedFrom, m1.to, min(m1.distance, m2.distance)))
+				else:
+					m1 = distArray[location[0]][i]
+					m2 = distArray[location[1]][i]
+					newFrom = m1.fm + m2.fm
+					if i == location[0]:
+						newCluster.append(DistanceMeasurement(mergedFrom, mergedFrom, min(m1.distance, m2.distance)))
+					else:
+						newCluster.append(DistanceMeasurement(mergedFrom, m1.to, min(m1.distance, m2.distance)))
+		
+		print "NEW CLUSTER: "
+		printCluster(newCluster)	
+		print ""
+
+		newDist = []
+		numColumns = len(distArray)
+
+		for i in range(0, numColumns - 1):
+			newDist.append([])
+
+		for r in range(0, numColumns):
+			if r != location[1]:
+				rowToInsertAt = r
+				if r > location[1]:
+					rowToInsertAt = r - 1
+				if r == location[0]:
+					map(lambda x: newDist[rowToInsertAt].append(x), newCluster)
+				else:
+					for c in range(0, len(distArray[r])):
+						if c != location[1]:
+							columnToInsertAt = c	
+							if c > location[1]:
+								columnToInsertAt = c - 1
+							if c == location[0]:
+								curval = distArray[r][c]
+								newTo = distArray[location[0]][location[1]].fm + distArray[location[0]][location[1]].to
+								value = DistanceMeasurement(curval.fm, newTo, newCluster[rowToInsertAt].distance)
+								newDist[rowToInsertAt].append(value)
+							else:
+								value = distArray[r][c]
+								newDist[rowToInsertAt].append(value)
+
+		return (newDist, nodeArray)
 
