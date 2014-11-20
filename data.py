@@ -28,3 +28,15 @@ class DistanceMeasurement:
 	def __str__(self):
 		return "fm:" + str(self.fm) + " to:" + str(self.to) + " " + str(self.distance)
 
+class Node:
+	def __init__(self, left, right, distance, cluster):
+		self.left = left
+		self.right = right
+		self.distance = distance
+		self.cluster = cluster
+	def __str__(self):
+		return str(self.cluster)
+	def __repr__(self):
+		return str(self.cluster)
+	def displayNode(self):
+		print 'L: ' + str(self.left) + ' R: ' + str(self.right) + ' D: ' + str(self.distance) + ' C: ' + str(self.cluster)
