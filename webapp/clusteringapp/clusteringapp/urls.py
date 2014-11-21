@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from dataclustering.views import home_view, make_kluster_view, instructions_view, myKlusters_view
 
 urlpatterns = patterns('',
@@ -12,4 +14,4 @@ urlpatterns = patterns('',
     url(r'^makekluster', make_kluster_view),
     url(r'^instructions', instructions_view),
     url(r'^myklusters', myKlusters_view),
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
