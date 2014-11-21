@@ -8,6 +8,7 @@ def createJSON(fileName, root):
 	fStream.write(u'\t\"children\": [\n')
 	#fStream.write('\t{\n')
 	jsonHelper(fStream, root.left, root.distance)
+	fStream.write(u'\t,')
 	jsonHelper(fStream, root.right, root.distance)
 	#fStream.write('\t}\n')
 	fStream.write(u'\t]\n')
