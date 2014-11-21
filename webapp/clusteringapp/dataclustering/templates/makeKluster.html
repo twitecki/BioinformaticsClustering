@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Cluster
+{% endblock %}
+
+{% block nav-makekluster %}
+class="active"
+{% endblock %}
+
+{% block content %}
+<center>
+
+<div class="body-content"></div>
+<div class="background-image"></div>
+
+<div class="kluster-form">
+	<h1 class="kluster-instructions"> This is where you create a cluster</h1>
+	<form role="form" action="/myklusters" method="get" id="createkluster">
+
+   <label for="file">File:</label>
+	<span class="btn btn-default btn-file">
+    Browse ... <input type="file" name="file" id="file">
+	</span>
+	<script>
+		$(document).ready( function() {
+    		$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        console.log(numFiles);
+        console.log(label);
+    });
+});
+	</script>
+
+	<label for="linkagetype">Linkage Type:</label>
+	<select class="form-inline" form="createkluster" name="linkagetype">
+           <option value="single" >Single </option>
+           <option value="complete">Complete</option>
+           <option value="average">Average</option>
+       </select>
+       <br>
+       <div style="max-width: 500px;">
+	<br>
+	</div>
+<br>
+   <button type="submit" class="btn btn-primary">Kluster</button>
+    </form>
+</div>
+</center>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
