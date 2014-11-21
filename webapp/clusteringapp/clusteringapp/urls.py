@@ -14,4 +14,4 @@ urlpatterns = patterns('',
     url(r'^makekluster', make_kluster_view),
     url(r'^instructions', instructions_view),
     url(r'^myklusters', myKlusters_view),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)
