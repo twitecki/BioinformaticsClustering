@@ -1,17 +1,3 @@
-{% extends "base.html" %}
-{% load staticfiles %}
-{% block title %}
-Echobase Home
-{% endblock %}
-
-{% block nav-home %}
-class="active"
-{% endblock %}
-
-{% block content %}
-<center>
-<body>
-<script>
 var width = 1200,
     height = 700;
 var cluster = d3.layout.cluster()
@@ -76,12 +62,3 @@ d3.json("{% static "dendro.json" %}", function(error, root) {
       .text(function(d) { return d.name; });    
 });
 d3.select(self.frameElement).style("height", height + "px");
-</script>
-
-<h1> Sample Data Cluster </h1>
-</center>
-{% endblock %}
-
-{% block footer %}
-
-{% endblock %}

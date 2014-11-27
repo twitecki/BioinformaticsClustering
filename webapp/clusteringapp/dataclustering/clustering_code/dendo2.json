@@ -1,0 +1,47 @@
+{
+	"name": "root", "y" : 0,
+	"children": [
+	{
+		"name": "[A, B, C, E, I, F, G, H]", "y" : 16,
+		"children": [
+	{
+		"name": "[A, B, C, E, I]", "y" : 79,
+		"children": [
+	{
+		"name": "[A, B, C, E]", "y" : 404,
+		"children": [
+	{
+		"name": "[A, B, C]", "y" : 842,
+		"children": [
+	{
+		"name": "[A, B]", "y" : 869,
+		"children": [
+		{"name": "[A]", "y" : 1075},
+		{"name": "[B]", "y" : 1075}	]
+	}
+,
+		{"name": "[C]", "y" : 1075}	]
+	}
+,
+		{"name": "[E]", "y" : 1075}	]
+	}
+,
+		{"name": "[I]", "y" : 1075}	]
+	}
+,
+	{
+		"name": "[F, G, H]", "y" : 267,
+		"children": [
+		{"name": "[F]", "y" : 1075},
+	{
+		"name": "[G, H]", "y" : 696,
+		"children": [
+		{"name": "[G]", "y" : 1075},
+		{"name": "[H]", "y" : 1075}	]
+	}
+	]
+	}
+	]
+	}
+	,		{"name": "[D]", "y" : 1075}	]
+}
