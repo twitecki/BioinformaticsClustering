@@ -1,6 +1,7 @@
 import sys
 from data import *
 from display import *
+from comparisons import getEuclideanDistance
 
 def buildInitialNodeArray(objectArray):
 	nodeArray = []
@@ -14,7 +15,8 @@ def buildDistanceMatrix(objectArray):
 	for i in range(0, len(objectArray)):
 		matrixColumn = []
 		for j in range(0, len(objectArray)):
-			matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], compareObjects(objectArray[i],objectArray[j])))
+			#matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], compareObjects(objectArray[i],objectArray[j])))
+			matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getEuclideanDistance(objectArray[i],objectArray[j], 3)))
 		distanceMatrix.append(matrixColumn)
 
 	return distanceMatrix

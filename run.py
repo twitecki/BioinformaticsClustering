@@ -5,6 +5,7 @@ from clustering import *
 from testFunctions import *
 from display import *
 from fileWriting import *
+from fileReading import *
 
 def findAnswer(matrix, nodeArray):
 	nArray = nodeArray
