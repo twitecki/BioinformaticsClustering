@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block title %}
-Echobase Home
+My Klusters
 {% endblock %}
 
-{% block nav-home %}
+{% block nav-myKlusters %}
 class="active"
 {% endblock %}
 
 {% block content %}
 <center>
-<body>
+<h1> My Klusters</h1>
+
 <script>
 var width = 1200,
     height = 700;
@@ -78,7 +79,6 @@ d3.json("{% static "dendro.json" %}", function(error, root) {
 d3.select(self.frameElement).style("height", height + "px");
 </script>
 
-<h1> Sample Data Cluster </h1>
 </center>
 {% endblock %}
 

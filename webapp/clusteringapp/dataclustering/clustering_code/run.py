@@ -1,4 +1,5 @@
 import sys
+import os
 from data import *
 from comparisons import *
 from clustering import *
@@ -46,6 +47,13 @@ def findAnswer(matrix, nodeArray):
 #testMatrix.append(mt2)
 #printCluster(testMatrix)
 
+def buildJSONTree(inputFile):
+	objectArray = buildObjectArray(inputFile)
+	distanceMatrix = buildDistanceMatrix(objectArray)
+	nodeArray = buildInitialNodeArray(distanceMatrix)
+	root = findAnswer(distanceMatrix, nodeArray)
+	fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
+	createJSON(fileLocation, root)
 
 #da = readDistancesFromFile('TestTextFiles/test1.txt')
 #da = readDistancesFromFile('TestTextFiles/test2.txt')

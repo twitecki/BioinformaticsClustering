@@ -10,6 +10,11 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys # ADDING TO PATH
+
+PROJECT_ROOT = os.path.dirname(__file__) #ADDING TO PATH
+sys.path.insert(0, os.path.join(PROJECT_ROOT, "dataclustering/clustering_code")) #ADDING TO PATH
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -24,7 +29,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,4 +87,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
