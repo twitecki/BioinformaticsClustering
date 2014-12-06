@@ -3,46 +3,37 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" href="{% static "styles.css" %}" >
   <link rel="stylesheet" href="{% static "dendrogram.css" %}" >
   <script src="http://d3js.org/d3.v3.min.js"></script>
 </head>
+
 <body>
+  <div id="wrapper">
+    <header>
+      <h1> Some Header  </h1>
+    </header>
+      <nav>
+        <ul class="nav-pills navbar-right">
+          <li {% block nav-home %}{% endblock %}><a href="/">Home</a></li>
+          <li {% block nav-instructions %}{% endblock %}><a href="/instructions">Instructions</a></li>
+          <li {% block nav-makekluster %}{% endblock %}><a href="/makekluster">Make Kluster</a></li>
+          <li {% block nav-myKlusters %}{% endblock %}><a href="/myklusters">My Klusters <span class="badge">1</span></a></li>
+        </ul>
+      </nav>
+      
+      {% block content %}{% endblock %}
 
-<div class="row">
-  <div class="col-sm-2">
-    <div class="sidebar-nav">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <span class="visible-xs navbar-brand">Sidebar menu</span>
-        </div>
-        <div class="navbar-collapse collapse sidebar-navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li {% block nav-home %}{% endblock %}><a href="/">Home</a></li>
-				 <li {% block nav-instructions %}{% endblock %}><a href="/instructions">Instructions</a></li>
-				 <li {% block nav-makekluster %}{% endblock %}><a href="/makekluster">Make Kluster</a></li>
-            <li {% block nav-myKlusters %}{% endblock %}><a href="/myklusters">My Klusters <span class="badge">1</span></a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+      <div id="footer">
+          <h1> This is the footer </h1>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-10">
-    {% block content %}{% endblock %}
-    {% block footer %}{% endblock %}
-  </div>
-</div> 
 
+  </div>
 
 </body>
+
 </html>
