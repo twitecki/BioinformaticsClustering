@@ -6,21 +6,25 @@ from testFunctions import *
 from display import *
 from fileWriting import *
 from fileReading import *
+from ClusteringSettings import *
 
 def findAnswer(matrix, nodeArray):
 	nArray = nodeArray
 	while(len(matrix) > 2):
-		printDistanceMatrix(matrix)
-		print nArray
+		if (DEBUG):
+			printDistanceMatrix(matrix)
 		result = mergeClusters(matrix, nArray,False)
 		matrix = result[0]
 		nArray = result[1]
-	printDistanceMatrix(matrix)
-	print nArray
+
+	if (DEBUG):
+		printDistanceMatrix(matrix)
+		print nArray
 
 	result = mergeClusters(matrix, nArray,True)
 	nArray = result[1]
-	print nArray
+	if (DEBUG):
+		print nArray
 
 	return nArray[len(nArray)-1]
 
@@ -64,8 +68,9 @@ try :
 	test = buildTestDistanceMatrix(da)
 	nodeArray = buildInitialNodeArray(test)
 	root = findAnswer(test, nodeArray)
-	print ''
-	printTree(root)
+	if (DEBUG):
+		print ''
+		printTree(root)
 	createJSON(str(sys.argv[2]), root)
 except IOError:
 	print "File not found"

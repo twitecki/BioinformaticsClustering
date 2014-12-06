@@ -2,6 +2,7 @@ import sys
 from data import *
 from display import *
 from comparisons import getEuclideanDistance
+from ClusteringSettings import *
 
 def buildInitialNodeArray(objectArray):
 	nodeArray = []
@@ -31,15 +32,16 @@ def findMergeLocation(distArray):
 				minimum = distArray[i][j].distance
 				minMeasurement = DistanceMeasurement(distArray[i][j].fm, distArray[i][j].to, distArray[i][j].distance)
 				location = (i,j)
-	
-	print location
-	print "" 
+	if (DEBUG):
+		print location
+		print "" 
 	return location
 
 def indexOfNode(nodeArray, cluster):
 	for i in range(0,len(nodeArray)):
 		if str(nodeArray[i].cluster) == str(cluster):
-			print 'Index of ' + str(cluster) + ' is ' + str(i)
+			if (DEBUG):
+				print 'Index of ' + str(cluster) + ' is ' + str(i)
 			return i
 	return -1
 
@@ -57,7 +59,8 @@ def mergeClusters(distArray, nodeArray, isLastRun):
 		nodeCluster = m3.fm + m3.to	
 		n = Node(leftNode, rightNode, m3.distance, nodeCluster)
 		nodeArray.append(n)
-		n.displayNode()
+		if (DEBUG):
+			print n.displayNode()
 		return ([[]], nodeArray)
 	else:
 		location = findMergeLocation(distArray)
@@ -70,7 +73,8 @@ def mergeClusters(distArray, nodeArray, isLastRun):
 		nodeCluster = m3.fm + m3.to	
 		n = Node(leftNode, rightNode, m3.distance, nodeCluster)
 		nodeArray.append(n)
-		print n.displayNode()
+		if (DEBUG):
+			print n.displayNode()
 
 		mergedFrom = m3.fm + m3.to
 		for i in range(len(distArray)):
@@ -92,9 +96,10 @@ def mergeClusters(distArray, nodeArray, isLastRun):
 					else:
 						newCluster.append(DistanceMeasurement(mergedFrom, m1.to, min(m1.distance, m2.distance)))
 		
-		print "NEW CLUSTER: "
-		printCluster(newCluster)	
-		print ""
+		if (DEBUG):
+			print "NEW CLUSTER: "
+			printCluster(newCluster)	
+			print ""
 
 		newDist = []
 		numColumns = len(distArray)
