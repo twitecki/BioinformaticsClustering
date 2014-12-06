@@ -25,9 +25,6 @@
     padding-top: 12px;
     padding-bottom: 12px;
   }
-  .active {
- 	 background-color: green;
-  }
   .sidebar-nav {
     position: fixed;
 	 top: 0px;
@@ -106,16 +103,81 @@
 article {
   float:left;
   width:960px;
+  margin: 0 0 25px 0;
 }
 
 nav {
+  margin-top: 15px;
+  margin-bottom: 15px;
   float: left;
   width: 960px;
-  height:100px;
+  height:auto;
+}
+
+#wrapper hr {
+    display: block;
+    margin: 0 0 10px 0;
+    border-style: inset;
+    border-width: 1px;
+}
+
+
+.pills a {
+    border-width: 2px;
+    border-radius: 13px !important;
+    color: gray !important;
+    border-color: #66FF66 !important;
+}
+
+.pills .active a,
+.pills .active li {
+    background-color:  #E0EAF0 !important;
+}
+
+.pills a:hover,
+.pills li:hover {
+    background-color:  #E0EAF0 !important;
+}
+
+.pills li {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 15px;
+    border-color: #66FF66;
+    margin-left: 5px !important;
 }
 
 #footer {
   clear:both;
+  width: 100%;
   background-color: #66FF66;
-  height:200px;
+  height:250px;
 }
+
+#footer hr {
+  width: 175px;
+  height: 1px;
+  border:0;
+  background-color: gray;
+}
+
+#footer-signoff {
+  clear: both;
+}
+
+#footer .footer-links {
+  background-color: gray;
+  margin: 50px auto 10px auto;
+}
+
+.footer-link-list {
+  float: left;
+}
+
+.footer-links ul {
+  list-style-type: none;
+}
+.footer-links .link-label {
+  font-size: 15;
+}
+

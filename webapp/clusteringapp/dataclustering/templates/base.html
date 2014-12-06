@@ -15,23 +15,57 @@
 <body>
   <div id="wrapper">
     <header>
-      <h1> Some Header  </h1>
+ 
     </header>
       <nav>
-        <ul class="nav-pills navbar-right">
+        <ul class="nav nav-pills navbar-right pills">
           <li {% block nav-home %}{% endblock %}><a href="/">Home</a></li>
           <li {% block nav-instructions %}{% endblock %}><a href="/instructions">Instructions</a></li>
           <li {% block nav-makekluster %}{% endblock %}><a href="/makekluster">Make Kluster</a></li>
           <li {% block nav-myKlusters %}{% endblock %}><a href="/myklusters">My Klusters <span class="badge">1</span></a></li>
         </ul>
       </nav>
-      
+
+      <hr>
+
+
       {% block content %}{% endblock %}
 
-      <div id="footer">
-          <h1> This is the footer </h1>
-      </div>
+      
 
+  </div>
+  <div id="footer">
+
+    <div class="footer-links">
+      <div class="footer-link-list">
+        <ul>
+          <li class="link-label">Content</li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/instructions">Instructions</a></li>
+          <li><a href="/makekluster">Make Kluster</a></li>
+          <li><a href="/myklusters">My Klusters</a></li>
+        </ul>
+      </div>
+      <div class="footer-link-list">
+        <ul>
+          <li class="link-label">Instructions</li>
+          <li><a href="/">CSV Formatting</a></li>
+          <li><a href="/instructions">Distance Metrics</a></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <div id="footer-signoff">
+         <hr>
+          <center>
+            <p>
+              Fork us on <a href="https://github.com/twitecki/BioinformaticsClustering">Github</a>
+              <br>
+              Made by <a href="https://github.com/twitecki">Thomas Witecki</a> and <a href="https://github.com/gmiesch">Garrett Miesch</a>
+
+            </p>
+          </center>
+      </div>
   </div>
 
 </body>
