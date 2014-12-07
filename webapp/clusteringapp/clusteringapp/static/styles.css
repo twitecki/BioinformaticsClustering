@@ -148,16 +148,16 @@ nav {
 }
 
 #footer {
+  position: relative;
   clear:both;
   width: 100%;
   background-color: #66FF66;
-  height:250px;
+  height:275px;
 }
 
 #footer hr {
   width: 175px;
   height: 1px;
-  border:0;
   background-color: gray;
 }
 
@@ -165,13 +165,24 @@ nav {
   clear: both;
 }
 
-#footer .footer-links {
-  background-color: gray;
-  margin: 50px auto 10px auto;
+.footer-logo {
+  width: 100px;
+  height: 20px;
+  display: block;
+  margin: 50px auto 0px auto;
+}
+
+.footer-links {
+  width: 290px;
+  height: 100px;
+  display: block;
+  margin: 50px auto 0px auto;
 }
 
 .footer-link-list {
+  width: 145px;
   float: left;
+  margin: 15px 10px 0px -10px;
 }
 
 .footer-links ul {

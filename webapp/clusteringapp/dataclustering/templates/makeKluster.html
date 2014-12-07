@@ -11,32 +11,32 @@ class="active"
 {% block content %}
 <center>
 
-<div class="body-content"></div>
-<div class="background-image"></div>
+<article>
 
 <div class="kluster-form">
 	<h1 class="kluster-instructions"> This is where you create a cluster</h1>
 
-	<form role="form" action="/myklusters" method="post" id="createkluster" enctype="multipart/form-data">
-{% csrf_token %}
-<input id="uploadbutton"  type="file" value="Choose File" name="file" accept="text/csv" />
-        <br>
+	     <form role="form" action="/myklusters" method="post" id="createkluster" enctype="multipart/form-data">
+      {% csrf_token %}
+          <input id="uploadbutton"  type="file" value="Choose File" name="file" accept="text/csv" />
+          <br>
 
-	<label for="linkagetype">Linkage Type:</label>
-	<select class="form-inline" form="createkluster" name="linkagetype">
-           <option value="single" >Single </option>
-           <option value="complete">Complete</option>
-           <option value="average">Average</option>
-       </select>
-       <br>
-       <div style="max-width: 500px;">
-	<br>
+	        <label for="linkagetype">Linkage Type:</label>
+    	    <select class="form-inline" form="createkluster" name="linkagetype">
+               <option value="single" >Single </option>
+               <option value="complete">Complete</option>
+               <option value="average">Average</option>
+          </select>
+
+          <br>
+          <div style="max-width: 500px;">
+	        <br>
 	</div>
 <br>
    <button type="submit" class="btn btn-primary">Kluster</button>
     </form>
 
-</div>
+</article>
 </center>
 {% endblock %}
 
