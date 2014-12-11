@@ -9,35 +9,81 @@ class="active"
 {% endblock %}
 
 {% block content %}
-<center>
+
 
 <article>
 
-<div class="kluster-form">
-	<h1 class="kluster-instructions"> This is where you create a cluster</h1>
+  <section>
+    
+  	   <h2> Create Kluster </h2>
+      <br>
 
-	     <form role="form" action="/myklusters" method="post" id="createkluster" enctype="multipart/form-data">
-      {% csrf_token %}
-          <input id="uploadbutton"  type="file" value="Choose File" name="file" accept="text/csv" />
-          <br>
+      <div class="clustering-form">
 
-	        <label for="linkagetype">Linkage Type:</label>
-    	    <select class="form-inline" form="createkluster" name="linkagetype">
-               <option value="single" >Single </option>
-               <option value="complete">Complete</option>
-               <option value="average">Average</option>
-          </select>
+  	         <form role="form" action="/myklusters" method="post" id="createkluster" enctype="multipart/form-data">
+            {% csrf_token %}
 
-          <br>
-          <div style="max-width: 500px;">
-	        <br>
-	</div>
-<br>
-   <button type="submit" class="btn btn-primary">Kluster</button>
-    </form>
+            <div class="form-group">
+
+                <label for="fileInput">CSV File:</label>
+                <input id="uploadbutton" class="form-control" type="file" value="Choose File" name="file" id="fileInput" accept="text/csv" />
+
+                
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="linkagetype">Linkage Type:</label>
+                    <select class="form-control" form="createkluster" name="linkagetype">
+                         <option value="single" >Single </option>
+                         <option value="complete">Complete</option>
+                         <option value="average">Average</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+  	        
+
+                <label for="map">Map Klustering:</label>
+                <select class="form-control" form="createkluster" name="map">
+                      <option value="no">No</option>
+                     <option value="yes" >Yes </option>                 
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="distanceMetric">Distance Metric:</label>
+                <select class="form-control" form="createkluster" name="distanceMetric">
+                     <option value="euclidean" >Euclidean</option>
+                     <option value="nn">Nearest Neighbor</option>
+                </select>
+
+            </div>
+
+  	
+            <br>
+
+
+            <button type="submit" class="btn btn-primary">Kluster</button>
+            </form>
+
+      </div>
+  </section>
+
+  <br>
+  <hr class="ResultsDivider">
+    
+  <section>
+
+    <h2> Klustering Results </h2>
+
+  </section>
 
 </article>
-</center>
+
 {% endblock %}
 
 {% block footer %}

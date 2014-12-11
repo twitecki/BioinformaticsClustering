@@ -121,6 +121,13 @@ nav {
     border-width: 1px;
 }
 
+.ResultsDivider {
+    display: block;
+    margin: 0 0 10px 0;
+    border-style: inset;
+    border-width: 1px;
+}
+
 
 .pills a {
     border-width: 2px;
@@ -190,5 +197,15 @@ nav {
 }
 .footer-links .link-label {
   font-size: 15;
+}
+
+.clustering-form {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formLabel {
+  margin-left: 20px;
 }
 
