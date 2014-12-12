@@ -18,7 +18,7 @@
  
     </header>
 
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar" role="navigation">
 
         <div class="navbar-header">
           <a class="navbar-brand brand" ><img src="{% static "KlusterLogo.png" %}"></a>
@@ -26,7 +26,7 @@
 
         <div>
 
-          <ul class="nav navbar-nav nav-pills navbar-right pills">
+          <ul class="nav nav-pills navbar-right pills">
             <li {% block nav-home %}{% endblock %}><a href="/">Home</a></li>
             <li {% block nav-instructions %}{% endblock %}><a href="/instructions">Instructions</a></li>
             <li {% block nav-makekluster %}{% endblock %}><a href="/makekluster">Make Kluster</a></li>
@@ -45,11 +45,8 @@
   </div>
   <div id="footer">
 
-    <div class="footer-logo">
-        <img src="{% static "KlusterLogo.png" %}">
-    </div>
-
-    <div class="footer-links">
+    <div id="footer-content">
+   <!--  <div class="footer-links">
       <div class="footer-link-list">
         <ul>
           <li class="link-label">Content</li>
@@ -65,10 +62,15 @@
           <li><a href="/instructions">Distance Metrics</a></li>
         </ul>
       </div>
-    </div>
+    </div> -->
  
+ <div class="footer-logo">
+        <img src="{% static "KlusterLogo.png" %}">
+    </div>
+<hr>
+
     <div id="footer-signoff">
-         <hr>
+        
           <center>
             <p>
               Fork us on <a href="https://github.com/twitecki/BioinformaticsClustering">Github</a>
@@ -78,7 +80,11 @@
             </p>
           </center>
       </div>
+    </div>
   </div>
+
+
+
 
 </body>
 
