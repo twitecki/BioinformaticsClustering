@@ -46,6 +46,14 @@
   filter: blur(1px);
   -webkit-filter: blur(1px);
 */ 
+.navbar .brand {
+    max-height: 40px;
+    max-width: 30%; 
+    overflow: visible;
+    padding-top: 0;
+    padding-bottom: 0; 
+}
+
 .kluster-form {
     margin-top: 30px;	
     margin-left: 60px;	

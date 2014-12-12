@@ -17,13 +17,24 @@
     <header>
  
     </header>
-      <nav>
-        <ul class="nav nav-pills navbar-right pills">
-          <li {% block nav-home %}{% endblock %}><a href="/">Home</a></li>
-          <li {% block nav-instructions %}{% endblock %}><a href="/instructions">Instructions</a></li>
-          <li {% block nav-makekluster %}{% endblock %}><a href="/makekluster">Make Kluster</a></li>
-          <li {% block nav-myKlusters %}{% endblock %}><a href="/myklusters">My Klusters <span class="badge">1</span></a></li>
-        </ul>
+
+      <nav class="navbar navbar-default" role="navigation">
+
+        <div class="navbar-header">
+          <a class="navbar-brand brand" ><img src="{% static "KlusterLogo.png" %}"></a>
+        </div>
+
+        <div>
+
+          <ul class="nav navbar-nav nav-pills navbar-right pills">
+            <li {% block nav-home %}{% endblock %}><a href="/">Home</a></li>
+            <li {% block nav-instructions %}{% endblock %}><a href="/instructions">Instructions</a></li>
+            <li {% block nav-makekluster %}{% endblock %}><a href="/makekluster">Make Kluster</a></li>
+            <li {% block nav-myKlusters %}{% endblock %}><a href="/myklusters">My Klusters <span class="badge">1</span></a></li>
+          </ul>
+
+      </div>
+
       </nav>
 
       <hr>
@@ -35,7 +46,7 @@
   <div id="footer">
 
     <div class="footer-logo">
-
+        <img src="{% static "KlusterLogo.png" %}">
     </div>
 
     <div class="footer-links">
