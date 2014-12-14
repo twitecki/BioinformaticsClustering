@@ -6,6 +6,7 @@ from clustering import *
 from testFunctions import *
 from display import *
 from fileWriting import *
+from jsonStringWriting import *
 from fileReading import *
 from ClusteringSettings import *
 
@@ -51,13 +52,14 @@ def findAnswer(matrix, nodeArray):
 #testMatrix.append(mt2)
 #printCluster(testMatrix)
 
-def buildJSONTree(inputFile):
+def buildJSONTree(inputFile, dType):
 	objectArray = buildObjectArray(inputFile)
-	distanceMatrix = buildDistanceMatrix(objectArray)
+	distanceMatrix = buildDistanceMatrix(objectArray, dType)
 	nodeArray = buildInitialNodeArray(distanceMatrix)
 	root = findAnswer(distanceMatrix, nodeArray)
-	fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
-	createJSON(fileLocation, root)
+	#fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
+	return createJSONString(root)
+
 
 
 #da = readDistancesFromFile('TestTextFiles/test1.txt')

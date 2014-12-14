@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.template.loader import get_template
 from django.template import Context
 
-from clustering_code.run import buildJSONTree
+from clustering_code.run import buildJSONTree, generateKlusterCode
 from dataclustering.models import Kluster, KlusterUser
 
 # Create your views here.
@@ -37,8 +37,21 @@ def myKlusters_view(request):
 	f = None
 	if request.method == 'POST':
 		f = request.FILES['file']
-    	if f:
-    		buildJSONTree(f)
+		distType = request.POST['distanceMetric']
+		if f:
+			jsonString = buildJSONTree(f, distType)
+			#Validate JSON String here
+			#if (isValid jsonString)
+			#Generate Code to store in database
+			unique = False
+			klusterKode = ""
+			while (not unique):
+				klusterKode = generateKlusterCode()
+				count = Kluster.objects.filter(code=klusterKode).count()
+				if (count == 0):
+					unique = True
+
+			Kluster.objects.create(code=klusterKode, JSON=jsonString, distanceMetric=distType)
         	return render(request, 'myklusters.html', {'file': f})
         else:
 		#contentOfFile = file1.read()

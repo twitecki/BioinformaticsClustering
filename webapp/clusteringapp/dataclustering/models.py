@@ -13,7 +13,8 @@ class KlusterUser(models.Model):
 class Kluster(models.Model):
 	code = models.CharField(max_length=4)
 	JSON = models.TextField()
-	user = models.ForeignKey(KlusterUser)
+	distanceMetric = models.CharField(max_length=50)
+	user = models.ForeignKey(KlusterUser, default=None, null=True)
 	dateCreated = models.DateField(auto_now_add=True)
 	timeCreated = models.TimeField(auto_now_add=True)
 
