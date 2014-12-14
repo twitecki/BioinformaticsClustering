@@ -215,12 +215,46 @@ nav {
 }
 
 .clustering-form {
-  width: 700px;
+  width: 400px;
   margin-left: auto;
   margin-right: auto;
 }
 
+.clustering-form-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 480px;
+  padding: 25px 15px 15px 15px;
+  border-style: solid;
+  border-color: gray;
+  border-radius: 20px;
+  border-width: 1px;
+}
+
 .formLabel {
   margin-left: 20px;
+}
+
+.codeInsertion {
+    margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  padding: 25px 15px 10px 15px;
+  border-style: solid;
+  border-color: gray;
+  border-radius: 20px;
+  border-width: 1px;
+}
+
+#dendrogram {
+  height: auto;
+  width: auto;
+}
+#dendrogram hr {
+  display: block;
+    margin: 60px 0 0px 0;
+    border-style: inset;
+    border-width: 1px;
+    width: 100%;
 }
 

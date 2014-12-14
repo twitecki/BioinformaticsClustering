@@ -7,6 +7,7 @@ from django.template.loader import get_template
 from django.template import Context
 
 from clustering_code.run import buildJSONTree
+from dataclustering.models import Kluster, KlusterUser
 
 # Create your views here.
 def home_view(request):
@@ -26,6 +27,11 @@ def instructions_view(request):
 	html = t.render(Context())
 	return HttpResponse(html)
 
+def insertcode_view(request):
+	t = get_template('insertcode.html')
+	html = t.render(Context())
+	return HttpResponse(html)
+
 def myKlusters_view(request):
 	t = get_template('myklusters.html')	
 	f = None
@@ -39,3 +45,11 @@ def myKlusters_view(request):
 		#context = Context(['filename' : ])
 			html = t.render(Context())
 			return HttpResponse(html)
+
+def getjsonfromcode(request):
+	requestCode = ""
+	if request.method == 'GET':
+		requestCode = request.GET['code']
+	k = Kluster.objects.get(code=requestCode)
+	jsonString = k.JSON
+	return HttpResponse(jsonString)

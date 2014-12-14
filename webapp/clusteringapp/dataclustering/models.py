@@ -18,4 +18,4 @@ class Kluster(models.Model):
 	timeCreated = models.TimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return self.Code
+		return self.code
