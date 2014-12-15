@@ -3,7 +3,7 @@ import string
 import random
 from data import *
 from display import *
-from comparisons import getEuclideanDistance
+from comparisons import getEuclideanDistance, getPearsonDistance
 from ClusteringSettings import *
 
 def generateKlusterCode():
@@ -31,7 +31,7 @@ def buildDistanceMatrix(objectArray, distType):
 			if (distType == "Euclidean"):
 				matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getEuclideanDistance(objectArray[i],objectArray[j], 3)))
 			elif (distType == "Pearson"):
-				matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getPearsonDistance(objectArray[i],objectArray[j], 3)))
+				matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getPearsonDistance(objectArray[i],objectArray[j])))
 		distanceMatrix.append(matrixColumn)
 
 	return distanceMatrix

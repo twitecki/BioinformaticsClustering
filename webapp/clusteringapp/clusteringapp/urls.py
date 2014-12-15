@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from dataclustering.views import home_view, make_kluster_view, instructions_view, myKlusters_view, insertcode_view, getjsonfromcode
+from dataclustering.views import home_view, make_kluster_view, instructions_view, myKlusters_view, insertcode_view, getjsonfromcode, createkluster
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     url(r'^insertcode', insertcode_view),
     url(r'^myklusters', myKlusters_view),
     url(r'^getjsonfromcode', getjsonfromcode),
+    url(r'^createkluster', createkluster),
 )

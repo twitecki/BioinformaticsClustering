@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
+from django.core import serializers
 
 from django.template.loader import get_template
 from django.template import Context
@@ -66,3 +67,29 @@ def getjsonfromcode(request):
 	k = Kluster.objects.get(code=requestCode)
 	jsonString = k.JSON
 	return HttpResponse(jsonString)
+
+def createkluster(request):
+	f = None
+	if request.method == 'POST':
+		f = request.FILES['file']
+		distType = request.POST['distanceMetric']
+		if f:
+			jsonString = buildJSONTree(f, distType)
+			#Validate JSON String here
+			#if (isValid jsonString)
+			#Generate Code to store in database
+			unique = False
+			klusterCode = ""
+			while (not unique):
+				klusterCode = generateKlusterCode()
+				count = Kluster.objects.filter(code=klusterCode).count()
+				if (count == 0):
+					unique = True
+
+			Kluster.objects.create(code=klusterCode, JSON=jsonString, distanceMetric=distType)
+			objToSerialize = Kluster.objects.get(code=klusterCode)
+			tempObj = serializers.serialize("json", [objToSerialize])
+			jsonObj = tempObj[1:-1]
+			return HttpResponse(jsonObj)
+		else:
+			return "You suck"

@@ -7,9 +7,9 @@ def createJSONString(root):
 	jsonString += '\t\"name\": \"root\", \"y\" : 0,\n'
 	jsonString += '\t\"children\": [\n'
 	#fStream.write('\t{\n')
-	jsonStringHelper(jsonString, root.left, root.distance)
+	jsonString = jsonStringHelper(jsonString, root.left, root.distance)
 	jsonString += '\t,'
-	jsonStringHelper(jsonString, root.right, root.distance)
+	jsonString = jsonStringHelper(jsonString, root.right, root.distance)
 	#fStream.write('\t}\n')
 	jsonString += '\t]\n'
 	jsonString += '}'
@@ -24,10 +24,11 @@ def jsonStringHelper(jsonString, node, rDist):
 		else:
 			jsonString += '\t{\n'
 			outString = '\t\t\"name\": \"' + str(node.cluster) + '\", \"y\" : ' + str((rDist - node.distance)) + ',\n'
-			fjsonString +=(outString)
+			jsonString +=(outString)
 			jsonString += '\t\t\"children\": [\n'
-			jsonStringHelper(jsonString, node.left, rDist)
+			jsonString = jsonStringHelper(jsonString, node.left, rDist)
 			jsonString += ',\n'
-			jsonStringHelper(jsonString, node.right, rDist)
+			jsonString = jsonStringHelper(jsonString, node.right, rDist)
 			jsonString += '\t]\n'
 			jsonString += '\t}\n'
+	return jsonString
