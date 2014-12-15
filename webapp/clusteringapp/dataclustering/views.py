@@ -68,8 +68,9 @@ def getjsonfromcode(request):
 	if request.method == 'GET':
 		requestCode = request.GET['code']
 	k = Kluster.objects.get(code=requestCode)
-	jsonString = k.JSON
-	return HttpResponse(jsonString)
+	tempObj = serializers.serialize("json", [k])
+	jsonObj = tempObj[1:-1]
+	return HttpResponse(jsonObj)
 
 def createkluster(request):
 	f = None

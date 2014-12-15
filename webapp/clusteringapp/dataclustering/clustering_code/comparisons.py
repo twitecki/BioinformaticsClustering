@@ -26,8 +26,13 @@ def average(x):
     assert len(x) > 0
     return float(sum(x)) / len(x)
 
-def pearson_def(x, y):
-    assert len(x) == len(y)
+def pearson_def(arr1, arr2):
+    assert len(arr1) == len(arr2)
+    x = []
+    y = []
+    for i in range(len(arr1)):
+    	x.append(float(arr1[i]))
+    	y.append(float(arr2[i]))
     n = len(x)
     assert n > 0
     avg_x = average(x)

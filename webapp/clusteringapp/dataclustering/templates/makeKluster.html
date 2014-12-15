@@ -78,13 +78,13 @@ class="active"
                 var form = document.getElementById('createkluster');
                 var formData = new FormData(form);
                 var http = new XMLHttpRequest();
-                var url = "http://localhost/createkluster";
+                var url = "http://localhost:8000/createkluster";
                 http.open( "POST", url, false );
                 http.send(formData);
                 //http.send(null);
                 //The response should be in json
                 var rText = http.responseText;
-                alert(rText);
+                //alert(rText);
                 if (rText == "timeout") {
                     document.getElementById('dendrogram').removeChild(spinner);
                     var hr = document.createElement("hr");
@@ -147,8 +147,8 @@ class="active"
               var h2 = document.createElement("h2");
 
               var details = document.createElement("h3");
-              kCode = "Kluster Code: ".concat(klusterCode);
-              metric = "Distance Metric: ".concat(dType);
+              kCode = "<strong>Kluster Code:</strong> ".concat(klusterCode);
+              metric = " <strong>Distance Metric:</strong> ".concat(dType);
               details.innerHTML = kCode.concat(metric);
 
               h2.innerHTML = "Klustering Results";
@@ -156,19 +156,46 @@ class="active"
           document.getElementById('dendrogram').appendChild(h2);
           document.getElementById('dendrogram').appendChild(details);
 
-              var width = 960,
-    height = 700;
+              var width = 960;
+      var height = 700;
+
+var root = JSON.parse(jsonCode);
+var tempRoot = JSON.parse(jsonCode);
+
+var tempCluster = d3.layout.cluster();
+var tempNodes = tempCluster.nodes(tempRoot);
+var numNodes = tempNodes.length;
+      alert(numNodes);
+if (numNodes > 50) {
+        height = 2000;
+} 
+if (numNodes > 150) {
+        height = 8000;
+} 
+if (numNodes > 1000) {
+        height = 30000;
+}
+    //var width = $(document).width() - 100;
+    //var height = $(document).height() - 100;
 var cluster = d3.layout.cluster()
-    .size([height, width - 100]);
+  .size([height, width]);
+    
+    var xs = [];   
+var ys = [];   
+   getXYfromJSONTree(root);
+  var nodes = cluster.nodes(root),
+      links = cluster.links(nodes);
+      
+
+
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [x(d.y), d.x]; });
 var svg = d3.select("#dendrogram").append("svg")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("width", width+100)
+    .attr("height", height+100)
   .append("g")
-    .attr("transform", "translate(50,40)");
-var xs = [];   
-var ys = [];   
+    .attr("transform", "translate(50,30)");
+
 function getXYfromJSONTree(node){           
    xs.push(node.x);          
    ys.push(node.y);           
@@ -177,14 +204,14 @@ function getXYfromJSONTree(node){
          getXYfromJSONTree(node.children[j]);                   
       }           
    }   
+}
+function elbow(d, i) {
+  return "M" + x(d.source.y) + "," + d.source.x
+      + "V" + d.target.x + "H" + x(d.target.y);
 }   
 var ymax = Number.MIN_VALUE;   
 var ymin = Number.MAX_VALUE;   
 
-   var root = JSON.parse(jsonCode);
-   getXYfromJSONTree(root);
-  var nodes = cluster.nodes(root),
-      links = cluster.links(nodes);
    nodes.forEach( function(d,i){                   
       if(typeof xs[i] != 'undefined'){                           
          d.x = xs[i];                   
@@ -205,16 +232,23 @@ var ymin = Number.MAX_VALUE;
       .data(links)
     .enter().append("path")
       .attr("class", "link")
-      .attr("d", diagonal);
+      .attr("d", elbow);
   var node = svg.selectAll(".node")
       .data(nodes)
     .enter().append("g")
       .attr("class", "node")
+      .attr("class", function(n) {
+          if (n.children) {
+            return "node inner"
+          } else {
+            return "node leaf"
+          }
+        })
       .attr("transform", function(d) { return "translate(" + x(d.y) + "," + d.x + ")"; })
   node.append("circle")
-      .attr("r", 4.5);
+      .attr("r", 7.5);
   node.append("text")
-      .attr("dx", function(d) { return d.children ? -8 : 8; })
+      .attr("dx", function(d) { return d.children ? -10 : 10; })
       .attr("dy", 3)
       .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
       .text(function(d) { return d.name; });   

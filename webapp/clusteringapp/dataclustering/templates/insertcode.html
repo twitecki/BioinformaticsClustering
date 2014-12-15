@@ -43,11 +43,18 @@ class="active"
                 setTimeout(function() {
 
 							var klusterCode = document.getElementById("codeInput").value;
-							var baseURL = "http://localhost/getjsonfromcode?code=";
+							var baseURL = "http://localhost:8000/getjsonfromcode?code=";
 							var requestUrl = baseURL.concat(klusterCode);
-							var jsonCode = httpGet(requestUrl);
+
+              var rText = httpGet(requestUrl);
+              var response = JSON.parse(rText);
+
+              var jsonCode = response.fields.JSON;
+              var klusterCode = response.fields.code;
+              var dType = response.fields.distanceMetric;
+
               document.getElementById('dendrogram').removeChild(spinner);
-							displayKluster(jsonCode);
+							displayKluster(jsonCode, klusterCode, dType);
 
               }, 500);
 							event.preventDefault();
@@ -59,24 +66,57 @@ class="active"
 				<div class="klusterView" id="dendrogram">
 					<script>
 					
-						function displayKluster(jsonCode) {
+						function displayKluster(jsonCode, klusterCode, dType) {
 							var hr = document.createElement("hr");
+              var details = document.createElement("h3");
+              kCode = "<strong>Kluster Code:</strong> ".concat(klusterCode);
+              metric = " <strong>Distance Metric:</strong> ".concat(dType);
+              details.innerHTML = kCode.concat(metric);
+
 					document.getElementById('dendrogram').appendChild(hr);
-		var width = 960,
-    height = 900;
+          document.getElementById('dendrogram').appendChild(details);
+
+
+		      var width = 960;
+      var height = 700;
+
+var root = JSON.parse(jsonCode);
+var tempRoot = JSON.parse(jsonCode);
+
+var tempCluster = d3.layout.cluster();
+var tempNodes = tempCluster.nodes(tempRoot);
+var numNodes = tempNodes.length;
+      alert(numNodes);
+if (numNodes > 50) {
+        height = 2000;
+} 
+if (numNodes > 150) {
+        height = 8000;
+} 
+if (numNodes > 1000) {
+        height = 30000;
+}
     //var width = $(document).width() - 100;
     //var height = $(document).height() - 100;
 var cluster = d3.layout.cluster()
-    .size([height, width]);
+  .size([height, width]);
+    
+    var xs = [];   
+var ys = [];   
+   getXYfromJSONTree(root);
+  var nodes = cluster.nodes(root),
+      links = cluster.links(nodes);
+      
+
+
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [x(d.y), d.x]; });
 var svg = d3.select("#dendrogram").append("svg")
     .attr("width", width+100)
     .attr("height", height+100)
   .append("g")
-    .attr("transform", "translate(50,50)");
-var xs = [];   
-var ys = [];   
+    .attr("transform", "translate(50,30)");
+
 function getXYfromJSONTree(node){           
    xs.push(node.x);          
    ys.push(node.y);           
@@ -93,10 +133,6 @@ function elbow(d, i) {
 var ymax = Number.MIN_VALUE;   
 var ymin = Number.MAX_VALUE;   
 
-   var root = JSON.parse(jsonCode);
-   getXYfromJSONTree(root);
-  var nodes = cluster.nodes(root),
-      links = cluster.links(nodes);
    nodes.forEach( function(d,i){                   
       if(typeof xs[i] != 'undefined'){                           
          d.x = xs[i];                   

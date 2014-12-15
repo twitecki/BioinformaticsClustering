@@ -55,15 +55,20 @@ def findAnswer(matrix, nodeArray):
 #printCluster(testMatrix)
 
 def buildJSONTree(inputFile, dType, q):
-	objectArray = buildObjectArray(inputFile)
-	distanceMatrix = buildDistanceMatrix(objectArray, dType)
-	nodeArray = buildInitialNodeArray(distanceMatrix)
-	root = findAnswer(distanceMatrix, nodeArray)
-	#fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
-	retString = createJSONString(root)
-	#return createJSONString(root)
-	q.put(retString)
-
+	try:
+		objectArray = buildObjectArray(inputFile)
+		if len(objectArray) == 0:
+			q.put("Not a valid JSON string")
+		else:
+			distanceMatrix = buildDistanceMatrix(objectArray, dType)
+			nodeArray = buildInitialNodeArray(distanceMatrix)
+			root = findAnswer(distanceMatrix, nodeArray)
+			#fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
+			retString = createJSONString(root)
+			#return createJSONString(root)
+			q.put(retString)
+	except:
+		q.put("Not a valid JSON string")
 
 #da = readDistancesFromFile('TestTextFiles/test1.txt')
 #da = readDistancesFromFile('TestTextFiles/test2.txt')
