@@ -69,6 +69,13 @@ class="active"
 
             <script>
               function createkluster() {
+                //Add Spinner
+                var spinner = document.createElement("div");
+                spinner.setAttribute("class", "loader");
+                document.getElementById('dendrogram').appendChild(spinner);
+
+                setTimeout(function() {
+
                 var form = document.getElementById('createkluster');
                 var formData = new FormData(form);
                 var http = new XMLHttpRequest();
@@ -78,18 +85,23 @@ class="active"
                 //http.send(null);
                 //The response should be in json
                 var rText = http.responseText;
-                alert(rText);
+                //alert(rText);
                 var response = JSON.parse(rText);
                 var jsonCode = response.fields.JSON;
                 var klusterCode = response.fields.code;
                 var dType = response.fields.distanceMetric;
-                alert(jsonCode);
-                alert(klusterCode);
-                alert(dType);
+                //alert(jsonCode);
+                //alert(klusterCode);
+                //alert(dType);
                 // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 // http.setRequestHeader("Content-length", params.length);
                 // http.setRequestHeader("Connection", "close");
-                displayKluster(jsonCode);
+
+                //Remove Spinner
+                document.getElementById('dendrogram').removeChild(spinner);
+                displayKluster(jsonCode, klusterCode, dType);
+
+                }, 500);
                 event.preventDefault();
               }
           </script>
@@ -103,12 +115,20 @@ class="active"
     <div class="klusterView" id="dendrogram">
           <script>
           
-            function displayKluster(jsonCode) {
+            function displayKluster(jsonCode, klusterCode, dType) {
               var hr = document.createElement("hr");
               var h2 = document.createElement("h2");
+
+              var details = document.createElement("h3");
+              kCode = "Kluster Code: ".concat(klusterCode);
+              metric = "              Distance Metric: ".concat(dType);
+              details.innerHTML = kCode.concat(metric);
+
               h2.innerHTML = "Klustering Results";
           document.getElementById('dendrogram').appendChild(hr);
           document.getElementById('dendrogram').appendChild(h2);
+          document.getElementById('dendrogram').appendChild(details);
+
               var width = 960,
     height = 700;
 var cluster = d3.layout.cluster()

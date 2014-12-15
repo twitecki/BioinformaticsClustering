@@ -36,7 +36,7 @@ class="active"
 							}
 						function showcode() {
 							var klusterCode = document.getElementById("codeInput").value;
-							var baseURL = "http://localhost:8000/getjsonfromcode?code=";
+							var baseURL = "http://localhost/getjsonfromcode?code=";
 							var requestUrl = baseURL.concat(klusterCode);
 							var jsonCode = httpGet(requestUrl);
 							displayKluster(jsonCode);

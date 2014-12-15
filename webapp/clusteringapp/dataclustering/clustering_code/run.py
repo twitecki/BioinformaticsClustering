@@ -61,7 +61,6 @@ def buildJSONTree(inputFile, dType):
 	return createJSONString(root)
 
 
-
 #da = readDistancesFromFile('TestTextFiles/test1.txt')
 #da = readDistancesFromFile('TestTextFiles/test2.txt')
 def printTree(node):
