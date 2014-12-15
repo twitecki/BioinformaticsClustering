@@ -258,6 +258,10 @@ nav {
     width: 100%;
 }
 
+.timeout-error {
+  margin: 0 auto 0;
+  font: red;
+}
 
 
 

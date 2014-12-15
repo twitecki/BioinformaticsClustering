@@ -10,6 +10,8 @@ from jsonStringWriting import *
 from fileReading import *
 from ClusteringSettings import *
 
+import Queue
+
 def findAnswer(matrix, nodeArray):
 	nArray = nodeArray
 	while(len(matrix) > 2):
@@ -52,13 +54,15 @@ def findAnswer(matrix, nodeArray):
 #testMatrix.append(mt2)
 #printCluster(testMatrix)
 
-def buildJSONTree(inputFile, dType):
+def buildJSONTree(inputFile, dType, q):
 	objectArray = buildObjectArray(inputFile)
 	distanceMatrix = buildDistanceMatrix(objectArray, dType)
 	nodeArray = buildInitialNodeArray(distanceMatrix)
 	root = findAnswer(distanceMatrix, nodeArray)
 	#fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
-	return createJSONString(root)
+	retString = createJSONString(root)
+	#return createJSONString(root)
+	q.put(retString)
 
 
 #da = readDistancesFromFile('TestTextFiles/test1.txt')

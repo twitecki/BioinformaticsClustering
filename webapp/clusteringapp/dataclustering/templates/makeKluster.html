@@ -21,7 +21,6 @@ class="active"
       <div class="clustering-form">
 
   	         <form role="form" id="createkluster" enctype="multipart/form-data">
-            {% csrf_token %}
 
             <div class="form-group">
 
@@ -85,6 +84,32 @@ class="active"
                 //http.send(null);
                 //The response should be in json
                 var rText = http.responseText;
+                alert(rText);
+                if (rText == "timeout") {
+                    document.getElementById('dendrogram').removeChild(spinner);
+                    var hr = document.createElement("hr");
+                    var h2 = document.createElement("h2");
+                    h2.setAttribute("class", "timeout-error")
+                    h2.innerHTML = "The klustering timed out. The file may be too large";
+                    document.getElementById('dendrogram').appendChild(hr);
+                    document.getElementById('dendrogram').appendChild(h2);
+                } else if (rText == "fileError") {
+                    document.getElementById('dendrogram').removeChild(spinner);
+                    var hr = document.createElement("hr");
+                    var h2 = document.createElement("h2");
+                    h2.setAttribute("class", "timeout-error")
+                    h2.innerHTML = "There is an error in your CSV file, make sure it is in the right format.";
+                    document.getElementById('dendrogram').appendChild(hr);
+                    document.getElementById('dendrogram').appendChild(h2);
+                } else if (rText == "noFile") {
+                    document.getElementById('dendrogram').removeChild(spinner);
+                    var hr = document.createElement("hr");
+                    var h2 = document.createElement("h2");
+                    h2.setAttribute("class", "timeout-error")
+                    h2.innerHTML = "You need to upload a file to cluster";
+                    document.getElementById('dendrogram').appendChild(hr);
+                    document.getElementById('dendrogram').appendChild(h2);
+                } else {
                 //alert(rText);
                 var response = JSON.parse(rText);
                 var jsonCode = response.fields.JSON;
@@ -100,6 +125,8 @@ class="active"
                 //Remove Spinner
                 document.getElementById('dendrogram').removeChild(spinner);
                 displayKluster(jsonCode, klusterCode, dType);
+
+              }
 
                 }, 500);
                 event.preventDefault();
@@ -121,7 +148,7 @@ class="active"
 
               var details = document.createElement("h3");
               kCode = "Kluster Code: ".concat(klusterCode);
-              metric = "              Distance Metric: ".concat(dType);
+              metric = "Distance Metric: ".concat(dType);
               details.innerHTML = kCode.concat(metric);
 
               h2.innerHTML = "Klustering Results";

@@ -8,6 +8,9 @@ from django.template.loader import get_template
 from django.template import Context
 
 from clustering_code.run import buildJSONTree, generateKlusterCode
+from clustering_code.utilities import *
+import threading
+import Queue
 from dataclustering.models import Kluster, KlusterUser
 
 # Create your views here.
@@ -71,25 +74,40 @@ def getjsonfromcode(request):
 def createkluster(request):
 	f = None
 	if request.method == 'POST':
-		f = request.FILES['file']
-		distType = request.POST['distanceMetric']
+		try:
+			f = request.FILES['file']
+			distType = request.POST['distanceMetric']
+		except:
+			return HttpResponse("noFile")
 		if f:
-			jsonString = buildJSONTree(f, distType)
-			#Validate JSON String here
-			#if (isValid jsonString)
-			#Generate Code to store in database
-			unique = False
-			klusterCode = ""
-			while (not unique):
-				klusterCode = generateKlusterCode()
-				count = Kluster.objects.filter(code=klusterCode).count()
-				if (count == 0):
-					unique = True
+			q = Queue.Queue()
+			t1 = threading.Thread(target=buildJSONTree, args=(f, distType, q))
+			t1.start()
+			t1.join(30.0)
+			if t1.isAlive():
+				return HttpResponse("timeout")
+			else:
+				jsonString = q.get()
+				if is_json(jsonString):
+					#jsonString = buildJSONTree(f, distType)
 
-			Kluster.objects.create(code=klusterCode, JSON=jsonString, distanceMetric=distType)
-			objToSerialize = Kluster.objects.get(code=klusterCode)
-			tempObj = serializers.serialize("json", [objToSerialize])
-			jsonObj = tempObj[1:-1]
-			return HttpResponse(jsonObj)
-		else:
-			return "You suck"
+					#Validate JSON String here
+					#if (isValid jsonString)
+					#Generate Code to store in database
+					unique = False
+					klusterCode = ""
+					while (not unique):
+						klusterCode = generateKlusterCode()
+						count = Kluster.objects.filter(code=klusterCode).count()
+						if (count == 0):
+							unique = True
+
+					Kluster.objects.create(code=klusterCode, JSON=jsonString, distanceMetric=distType)
+					objToSerialize = Kluster.objects.get(code=klusterCode)
+					tempObj = serializers.serialize("json", [objToSerialize])
+					jsonObj = tempObj[1:-1]
+					return HttpResponse(jsonObj)
+				else:
+					return HttpResponse("fileError")
+	else:
+		return HttpResponse("Not a POST request")

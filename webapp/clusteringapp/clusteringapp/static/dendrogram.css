@@ -3,8 +3,27 @@
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
+circle:hover {
+  fill: red;
+  stroke: red;
+  stroke-width: 1.5px;
+}
+
 .node {
-  font: 10px sans-serif;
+  
+}
+
+.inner {
+  font: 0px sans-serif;
+}
+
+.leaf {
+  font: 10px !important;
+}
+
+.node:hover {
+	font: 20px sans-serif;
 }
 .link {
   fill: none;
@@ -13,4 +32,8 @@
 }
 line {           
    stroke: black;   
+}
+
+svg {
+  clear:both;
 }
