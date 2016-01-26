@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+Data Clustering Home
+{% endblock %}
+
+{% block nav-home %}
+class="active"
+{% endblock %}
+
+{% block content %}
+<article>
+	<section>
+    	<h2> Clustering </h2>
+	    <p>
+	    	Data Clustering is the process of organizing objects into groups whose members are similar in some way. 
+	    </p>
+	    <p>
+	    	We have created this website as a tool for people to use who are looking to run clustering algorithms on their own data. The intention of this website is to be continuously evolving and expanding in regards to the distance metrics we offer, different display options, and other various projects we are working on implementing. 
+	    </p>
+	</section>
+	<section>
+    <h2> kluster.me </h2>
+    <p>
+    	This application was originally written as a project for a class in bioinformatics. We utilized many different tools for this project including: 
+    	Python for our clustering algorithm.
+    	HTML and CSS for creating and styling our website.
+    	Javascript, Django, Heroku, and MySQLite for back end and serverside. 
+
+    	We learned a lot throughout the semester and hopefully plan on continuing working on this project in our free time as a learning tool. 
+    </p>
+	</section>
+    <section>
+    <h2> Authors </h2>
+    <p>
+    	We are students at Trinity University in San Antonio. We are both Computer Science majors. 
+    </p>
+	</section>
+</article>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+	"name": "root", "y" : 0,
+	"children": [
+	{
+		"name": "[Thomas, Garrett, Fogarty]", "y" : 82.527,
+		"children": [
+	{
+		"name": "[Thomas, Garrett]", "y" : 83.39,
+		"children": [
+		{"name": "[Thomas]", "y" : 91.071},
+		{"name": "[Garrett]", "y" : 91.071}	]
+	}
+,
+		{"name": "[Fogarty]", "y" : 91.071}	]
+	}
+	,		{"name": "[Hibbs]", "y" : 91.071}	]
+}

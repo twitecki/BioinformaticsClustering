@@ -1,0 +1,29 @@
+{
+	"name": "root", "y" : 0,
+	"children": [
+	{
+		"name": "[A, D, E, B]", "y" : 27,
+		"children": [
+	{
+		"name": "[A, D, E]", "y" : 40,
+		"children": [
+		{"name": "[A]", "y" : 295},
+	{
+		"name": "[D, E]", "y" : 76,
+		"children": [
+		{"name": "[D]", "y" : 295},
+		{"name": "[E]", "y" : 295}	]
+	}
+	]
+	}
+,
+		{"name": "[B]", "y" : 295}	]
+	}
+	,	{
+		"name": "[C, F]", "y" : 157,
+		"children": [
+		{"name": "[C]", "y" : 295},
+		{"name": "[F]", "y" : 295}	]
+	}
+	]
+}

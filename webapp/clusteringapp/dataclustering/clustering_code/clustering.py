@@ -1,8 +1,19 @@
 import sys
+import string
+import random
 from data import *
 from display import *
-from comparisons import getEuclideanDistance
+from comparisons import getEuclideanDistance, getPearsonDistance
 from ClusteringSettings import *
+
+def generateKlusterCode():
+	letters = string.letters
+	c1 = random.choice(letters)
+	c2 = random.choice(letters)
+	c3 = random.choice(letters)
+	c4 = random.choice(letters)
+	retString = c1 + c2 + c3 + c4
+	return retString
 
 def buildInitialNodeArray(objectArray):
 	nodeArray = []
@@ -11,13 +22,16 @@ def buildInitialNodeArray(objectArray):
 		nodeArray.append(newNode)
 	return nodeArray
 
-def buildDistanceMatrix(objectArray):
+def buildDistanceMatrix(objectArray, distType):
 	distanceMatrix = []
 	for i in range(0, len(objectArray)):
 		matrixColumn = []
 		for j in range(0, len(objectArray)):
 			#matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], compareObjects(objectArray[i],objectArray[j])))
-			matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getEuclideanDistance(objectArray[i],objectArray[j], 3)))
+			if (distType == "Euclidean"):
+				matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getEuclideanDistance(objectArray[i],objectArray[j], 3)))
+			elif (distType == "Pearson"):
+				matrixColumn.append(DistanceMeasurement([objectArray[i]], [objectArray[j]], getPearsonDistance(objectArray[i],objectArray[j])))
 		distanceMatrix.append(matrixColumn)
 
 	return distanceMatrix

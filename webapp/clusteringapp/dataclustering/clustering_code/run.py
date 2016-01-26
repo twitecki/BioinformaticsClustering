@@ -1,12 +1,16 @@
 import sys
+import os
 from data import *
 from comparisons import *
 from clustering import *
 from testFunctions import *
 from display import *
 from fileWriting import *
+from jsonStringWriting import *
 from fileReading import *
 from ClusteringSettings import *
+
+import Queue
 
 def findAnswer(matrix, nodeArray):
 	nArray = nodeArray
@@ -50,6 +54,21 @@ def findAnswer(matrix, nodeArray):
 #testMatrix.append(mt2)
 #printCluster(testMatrix)
 
+def buildJSONTree(inputFile, dType, q):
+	try:
+		objectArray = buildObjectArray(inputFile)
+		if len(objectArray) == 0:
+			q.put("Not a valid JSON string")
+		else:
+			distanceMatrix = buildDistanceMatrix(objectArray, dType)
+			nodeArray = buildInitialNodeArray(distanceMatrix)
+			root = findAnswer(distanceMatrix, nodeArray)
+			#fileLocation = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../clusteringapp/static/dendro.json'))
+			retString = createJSONString(root)
+			#return createJSONString(root)
+			q.put(retString)
+	except:
+		q.put("Not a valid JSON string")
 
 #da = readDistancesFromFile('TestTextFiles/test1.txt')
 #da = readDistancesFromFile('TestTextFiles/test2.txt')
