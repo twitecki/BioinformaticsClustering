@@ -78,8 +78,9 @@ class="active"
                 var form = document.getElementById('createkluster');
                 var formData = new FormData(form);
                 var http = new XMLHttpRequest();
-                var url = "http://www.kluster.me/createkluster";
-                http.open( "POST", url, false );
+                //var url = "http://www.kluster.me/createkluster";
+                var url = "/createkluster";
+				http.open( "POST", url, false );
                 http.send(formData);
                 //http.send(null);
                 //The response should be in json
